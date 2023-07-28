@@ -10,6 +10,13 @@ type varcharField struct {
 	defaultVal any
 }
 
+func (v *varcharField) CanNull() bool {
+	return v.nullable
+}
+func (v *varcharField) GetName() string {
+	return v.name
+}
+
 func (v *varcharField) Null(value bool) IField {
 	v.nullable = value
 	return v

@@ -1,7 +1,7 @@
 package themisgraphorm
 
 import (
-	"fmt"
+	"github.com/thaianhsoft/gothemis/themisgraphorm/builder"
 	"github.com/thaianhsoft/gothemis/themisgraphorm/schema"
 	"github.com/thaianhsoft/gothemis/themisgraphorm/schema/edge"
 	"github.com/thaianhsoft/gothemis/themisgraphorm/schema/field"
@@ -50,8 +50,24 @@ func (b *Book) DefineEdges() []edge.IEdge {
 	}
 }
 
+// after user define 2 schema above, gen schema generate
+type StudentQuery struct {
+}
+
+func (s *StudentQuery) HasBooks(sel func(selector *builder.Selector)) *BookQuery {
+	return &BookQuery{}
+}
+
+type BookQuery struct {
+}
+
+func (b *BookQuery) QueryOwner() *BookQuery {
+	return b
+}
+
 func TestDefineSchema(t *testing.T) {
-	engine := &ThemisGraphEngine{}
-	createTableStmt := engine.Migrate(&Student{}, &Book{})
-	fmt.Println(createTableStmt)
+	v := &StudentQuery{}
+	v.HasBooks(func(selector *builder.Selector) {
+		selector.Select().From()
+	})
 }
