@@ -14,6 +14,7 @@ type User struct {
 	Address   string
 	LastName  string
 	FirstName string
+	Email     string
 }
 
 func (u *User) DefineFields() []field.IField {
@@ -23,6 +24,7 @@ func (u *User) DefineFields() []field.IField {
 		field.Varchar(10).Name("FirstName").Null(false),
 		field.Varchar(10).Name("LastName").Null(false),
 		field.Varchar(45).Name("Address").Null(false),
+		field.Varchar(45).Name("Email").Null(false),
 	}
 }
 
@@ -35,6 +37,7 @@ type UserMessage struct {
 	UserLastName  string
 	UserFirstName string
 	UserAddress   string
+	UserEmail     string
 }
 
 func TestChangeset(t *testing.T) {
@@ -44,9 +47,13 @@ func TestChangeset(t *testing.T) {
 		UserLastName:  "Le",
 		UserFirstName: "Thai Anh",
 		UserAddress:   "50/b, nguyen van luong, go vap",
+		UserEmail:     "thaianhsoft@gmail.com",
 	}
 	cs := Cast(msg, u)
-	err := cs.ValidateRequired().IsValidAll()
+	err := cs.
+		ValidateRequired().
+		ValidPattern("Email", []byte(`.*@gmail.com`)).
+		IsValidAll()
 	if err != nil {
 		fmt.Println("error: ", err)
 	} else {

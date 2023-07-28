@@ -73,6 +73,7 @@ func (c *changeCasterImpl) ValidateRequired(fieldNames ...string) ChangeCaster {
 func (c *changeCasterImpl) ValidPattern(fieldName string, patternRegex []byte) ChangeCaster {
 	c.validFns = append(c.validFns, func() string {
 		if _, ok := c.boxes[fieldName]; ok {
+			fmt.Println(c.boxes[fieldName])
 			if valString, ok := c.boxes[fieldName].val.(string); ok {
 				regex, err := regexp.Compile(string(patternRegex))
 				if err != nil {
@@ -152,6 +153,7 @@ func Cast(fromMessage any, schemaMigrator Migrator) ChangeCaster {
 								// get box with fieldName
 								rvSchema.FieldByName(fieldNameTrimedPrefixSchemaName).
 									Set(reflect.ValueOf(rvMessageField.Interface()))
+								cs.boxes[fieldNameTrimedPrefixSchemaName].val = rvMessageField.Interface()
 								// clear index not null exist from it
 								cs.indexNotNull &= ^(1 << cs.boxes[fieldNameTrimedPrefixSchemaName].indexNotNull)
 							}
