@@ -43,6 +43,9 @@ func (b *Book) DefineFields() []field.IField {
 
 func (b *Book) DefineEdges() []edge.IEdge {
 	return []edge.IEdge{
+		// define cause table add one column hold relation for book and student
+		// column name OwnerRelId must is unique
+		// but for Book one row is id  unique, don't create indexing on OwnerRelId
 		edge.PointBack("Owner", StudentType).RefOn("HasBooks", StudentType).Unique(),
 	}
 }
