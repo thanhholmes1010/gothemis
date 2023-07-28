@@ -11,7 +11,18 @@ type intField struct {
 	defaultVal any
 }
 
+func (i *intField) CanNull() bool {
+	return i.nullable
+}
+
+func (i *intField) GetName() string {
+	return i.name
+}
+
 func (i *intField) Null(v bool) IField {
+	if i.ai {
+		return i
+	}
 	i.nullable = v // default true is null, false // is notnullable
 	return i
 }
@@ -38,6 +49,7 @@ func (i *intField) Unique() IField {
 
 func (i *intField) AI() IField {
 	i.ai = true
+	i.nullable = true
 	return i
 }
 

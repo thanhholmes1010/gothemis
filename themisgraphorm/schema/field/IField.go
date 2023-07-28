@@ -7,6 +7,8 @@ type IField interface {
 	Unsigned() IField // set unsigned
 	Null(v bool) IField
 	Default(v any) IField
+	GetName() string
+	CanNull() bool
 }
 
 func Integer(bitSize int) IField {
