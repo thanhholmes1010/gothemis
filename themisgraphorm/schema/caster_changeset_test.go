@@ -15,6 +15,7 @@ type User struct {
 	LastName  string
 	FirstName string
 	Email     string
+	Balance   float32
 }
 
 func (u *User) DefineFields() []field.IField {
@@ -25,6 +26,7 @@ func (u *User) DefineFields() []field.IField {
 		field.Varchar(10).Name("LastName").Null(false),
 		field.Varchar(45).Name("Address").Null(false),
 		field.Varchar(45).Name("Email").Null(false),
+		field.Float().Name("Balance"),
 	}
 }
 
@@ -47,7 +49,7 @@ func TestChangeset(t *testing.T) {
 		UserLastName:  "Le",
 		UserFirstName: "Thai Anh",
 		UserAddress:   "50/b, nguyen van luong, go vap",
-		UserEmail:     "thaianhsoft@gmail.com",
+		UserEmail:     "thaianhsoft@email.com",
 	}
 	cs := Cast(msg, u)
 	err := cs.

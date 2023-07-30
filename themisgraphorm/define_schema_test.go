@@ -1,7 +1,7 @@
 package themisgraphorm
 
 import (
-	"github.com/thaianhsoft/gothemis/themisgraphorm/builder"
+	"github.com/thaianhsoft/gothemis/themisgraphorm/builder/mysql"
 	"github.com/thaianhsoft/gothemis/themisgraphorm/schema"
 	"github.com/thaianhsoft/gothemis/themisgraphorm/schema/edge"
 	"github.com/thaianhsoft/gothemis/themisgraphorm/schema/field"
@@ -54,7 +54,7 @@ func (b *Book) DefineEdges() []edge.IEdge {
 type StudentQuery struct {
 }
 
-func (s *StudentQuery) HasBooks(sel func(selector *builder.Selector)) *BookQuery {
+func (s *StudentQuery) HasBooks(sel func(selector *mysql.Selector)) *BookQuery {
 	return &BookQuery{}
 }
 
@@ -67,7 +67,7 @@ func (b *BookQuery) QueryOwner() *BookQuery {
 
 func TestDefineSchema(t *testing.T) {
 	v := &StudentQuery{}
-	v.HasBooks(func(selector *builder.Selector) {
+	v.HasBooks(func(selector *mysql.Selector) {
 		selector.Select().From()
 	})
 }
