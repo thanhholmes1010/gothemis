@@ -28,3 +28,7 @@ func (a *AllaKator) SpawnChildProcess(initFuncState func() Alla) *AllaKator {
 func (a *AllaKator) Send(pid Pid, message any) {
 
 }
+
+func (a *AllaKator) Message() (sender Pid, message any) {
+	return "", nil
+}

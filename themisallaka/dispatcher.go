@@ -1,7 +1,5 @@
 package themisallaka
 
-import "fmt"
-
 type Dispatcher struct {
 	pool *Pool
 }
@@ -9,7 +7,7 @@ type Dispatcher struct {
 func (d *Dispatcher) RunnableProcessFunc(behaviour *RunnableBehaviour) ThreadBehaviour {
 	d.pool.GetCondLocker().L.Lock()
 	for d.pool.GetContainer().Empty() {
-		fmt.Println("[Dispatcher]: Thread is sleeping")
+		//fmt.Println("[Dispatcher]: Thread is sleeping")
 		d.pool.GetCondLocker().Wait()
 	}
 	tb := &RunningBehaviour{
