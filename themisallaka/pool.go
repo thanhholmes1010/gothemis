@@ -22,7 +22,6 @@ func NewPool(maxSize int, tpFunc ThreadProcessFunc) *Pool {
 		maxSize:         maxSize,
 		tpFunc:          tpFunc,
 	}
-	p.spawnThreads()
 	return p
 }
 

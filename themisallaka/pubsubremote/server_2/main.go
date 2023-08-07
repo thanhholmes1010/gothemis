@@ -3,6 +3,6 @@ package main
 import "github.com/thaianhsoft/gothemis/themisallaka"
 
 func main() {
-	manager := themisallaka.NewAllaSystem()
-
+	server := themisallaka.NewAllaSystem()
+	server.WaitSignal()
 }
