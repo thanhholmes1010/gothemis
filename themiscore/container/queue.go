@@ -6,8 +6,9 @@ type queueNode struct {
 }
 
 type queueIterator struct {
-	f *queueNode
-	b *queueNode
+	f    *queueNode
+	b    *queueNode
+	size int
 }
 
 func (q *queueIterator) Empty() bool {
@@ -17,6 +18,7 @@ func (q *queueIterator) Empty() bool {
 func (q *queueIterator) Pop() any {
 	old := q.f
 	q.f = old.next
+	q.size--
 	return old.data
 }
 
@@ -41,14 +43,19 @@ func (q *queueIterator) pushBack(v *queueNode) {
 	} else {
 		q.b, q.b.next = v, v
 	}
+	q.size++
 }
 
+func (q *queueIterator) Size() int {
+	return q.size
+}
 func (q *queueIterator) pushFront(v *queueNode) {
 	if q.f == nil {
 		q.f, q.b = v, v
 	} else {
 		q.f, v.next = v, q.f
 	}
+	q.size++
 }
 
 func NewQueue() IteratorContainer {

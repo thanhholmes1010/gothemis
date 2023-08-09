@@ -16,3 +16,7 @@ func (tge *ThemisGraphEngine) Migrate(schemaClasses ...schema.Migrator) string {
 	}
 	return tge.createStmtBuilder.String()
 }
+
+func (tge *ThemisGraphEngine) queryGraph() {
+
+}

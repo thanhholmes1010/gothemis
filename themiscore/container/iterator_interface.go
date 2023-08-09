@@ -5,4 +5,5 @@ type IteratorContainer interface {
 	Pop() any    // get and pop
 	Peak() any   // lookahead but don't pop before
 	Push(isPushFront bool, data ...any)
+	Size() int
 }
